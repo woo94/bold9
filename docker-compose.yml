@@ -1,0 +1,34 @@
+version: "3.8"
+
+services:
+  # following app and mysql is using same network specified by the Docker compose
+  app:
+    image: node:lts-alpine3.12
+    command: sh -c "npm install"
+    # map host port 8080 to container port 8080
+    ports:
+      - 8080:8080
+    working_dir: /app
+    # connet host path ./ to container path /app
+    volumes:
+      - ./:/app
+    environment:
+      # mysql will be resolve to service/mysql ip address
+      MYSQL_HOST: mysql
+      MYSQL_USER: root
+      MYSQL_PASSWORD: secret
+      MYSQL_DB: bold99
+
+  # mysql is a service name and at the same time network alias
+  mysql:
+    image: mysql:latest
+    # persist DB using volume 
+    # volume name "test_v" resides in host connects to container path /var/lib/mysql
+    volumes:
+      - test_v:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: secret
+      MYSQL_DATABASE: bold99
+# define volume in the top-level volumes: section and then specify the mountpoint in the service config
+volumes:
+  test_v:
