@@ -1,0 +1,60 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  // SCALAR FIELDS
+  id        Int      @id @default(autoincrement())
+  email     String
+  password  String
+  name      String
+  createdAt DateTime @default(now())
+
+  // RELATION FIELDS
+  // User : Post is in 1:N relation
+  // posts is relation field represent in Prisma-level
+  posts Post[]
+}
+
+model Post {
+  // SCALAR FIELDS
+  id        Int      @id @default(autoincrement())
+  title     String
+  content   String
+  published Boolean  @default(true)
+  createdAt DateTime @default(now())
+
+  // RELATIONS FIELDS
+  // User : Post is in 1:N relation
+  // use authorId as foreign key
+  author User @relation(fields: [authorId], references: [id])
+
+  // User : Post RELATION SCALAR
+  authorId Int
+
+  // Post : Comment is in 1:N relation
+  comments Comment[]
+}
+
+model Comment {
+  // SCALAR FIELDS
+  id        Int      @id @default(autoincrement())
+  content   String
+  createdAt DateTime @default(now())
+
+  // RELATION FIELDS
+  // Post : Comment is in 1:N relation
+  // use postId
+  post Post @relation(fields: [postId], references: [id])
+
+  // Post : Comment RELATION SCALAR
+  postId Int // relation scalar
+}
