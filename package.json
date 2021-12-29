@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/woo94/bold9/issues"
   },
-  "homepage": "https://github.com/woo94/bold9#readme"
+  "homepage": "https://github.com/woo94/bold9#readme",
+  "dependencies": {
+    "mysql": "^2.18.1"
+  }
 }
