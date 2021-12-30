@@ -3,9 +3,12 @@ version: "3.8"
 services:
   # following app and mysql is using same network specified by the Docker compose
   app:
-    image: node:lts-alpine3.12
-    command: sh -c "npm install && npx prisma migrate dev --name init && npx prisma
-      db seed && npm run server"
+    image: node:latest
+    depends_on:
+      mysql:
+        condition: service_healthy
+    command: sh -c "npm install && npx prisma generate && npx prisma migrate deploy
+      && npx prisma db seed && npm run server"
     # map host port 8080 to container port 8080
     ports:
       - 8080:8080
@@ -26,3 +29,7 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: secret
       MYSQL_DATABASE: bold9
+    healthcheck:
+      test: [ "CMD", "mysqladmin", "ping", "-h", "localhost" ]
+      timeout: 3s
+      retries: 10
