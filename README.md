@@ -46,10 +46,12 @@ PORT="8080"
 
 
 마지막으로 프로젝트를 진행하면서 풀리지 않는 의문이 있었습니다.
+
+
 Q) 위에서 로컬 개발용과 제출용이 있다고 말씀드렸습니다. 
 로컬 개발용으로 진행할때는 MySQL container에 외부접속이 허용되게 설정해주지 않으면 DB에 connection이 이루어지지 않았습니다.
 하지만 제출용에서는 이러한 설정을 해주지 않아도 app container에서 mysql container로의 connection이 잘 이루어졌습니다.
-service/app에서 MYSQL_HOST 환경변수로 넘겨준 mysql network가 resolve 되면서 접속이 가능한게 아닐까라고 하는 추측 이상으로는 실마리를 찾지 못했습니다.
+service/app에서 MYSQL_HOST 환경변수로 넘겨준 mysql network가 resolve 되면서 접속이 가능한게 아닐까 라는 추측 이상으로는 실마리를 찾지 못했습니다.
 
 
 이 현상에 대해서 설명을 해주신다면 정말 감사드리겠습니다.
