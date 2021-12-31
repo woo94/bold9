@@ -15,7 +15,7 @@ datasource db {
 model User {
   // SCALAR FIELDS
   id        Int      @id @default(autoincrement())
-  email     String
+  email     String   @unique // email/password would be login method so give email @unique attributes
   password  String
   name      String
   createdAt DateTime @default(now())
