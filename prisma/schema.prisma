@@ -2,9 +2,10 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-  provider        = "prisma-client-js"
-  previewFeatures = ["extendedIndexes"]
-  binaryTargets   = ["native", "linux-arm64-openssl-1.1.x"]
+  provider      = "prisma-client-js"
+  // for local development purpose
+  // add binaryTargets when host PC's OS is other than M1 Mac
+  binaryTargets = ["native", "linux-arm64-openssl-1.1.x"]
 }
 
 datasource db {
