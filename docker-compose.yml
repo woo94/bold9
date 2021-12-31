@@ -4,6 +4,7 @@ services:
   # following app and mysql is using same network specified by the Docker compose
   app:
     image: node:latest
+    # set dependency order and healthcheck condition
     depends_on:
       mysql:
         condition: service_healthy
